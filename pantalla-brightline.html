@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brightline Departures - MiamiCentral</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100vh;
+    }
+    .screen {
+      background: #ffffff;
+      border-radius: 16px;
+      margin-top: 2rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 800px;
+      padding: 1.5rem;
+    }
+    .header {
+      background-color: #fdd835;
+      padding: 1rem;
+      border-radius: 12px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #000;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .next-train {
+      background-color: #e0f7fa;
+      padding: 1rem;
+      border-left: 6px solid #00acc1;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+    }
+    .next-train h2 {
+      margin: 0 0 0.5rem 0;
+    }
+    .train {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+    .train:last-child {
+      border-bottom: none;
+    }
+    .destination {
+      font-weight: 500;
+    }
+    .time {
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <div class="header">Departures - MiamiCentral</div>
+
+    <div class="next-train">
+      <h2>Next Train: Loading...</h2>
+      <p>Departure: <strong>--:--</strong></p>
+      <p>Status: <strong>Loading...</strong></p>
+    </div>
+
+    <div class="train-list"></div>
+  </div>
+
+  <script>
+  fetch('trenes.json')
+    .then(response => response.json())
+    .then(data => {
+      const next = data[0];
+      document.querySelector('.next-train h2').innerText = `Next Train: Miami → ${next.destino}`;
+      document.querySelector('.next-train p:nth-child(2)').innerHTML = `Departure: <strong>${next.hora}</strong>`;
+      document.querySelector('.next-train p:nth-child(3)').innerHTML = `Status: <strong>${next.estado}</strong>`;
+
+      const list = document.querySelector('.train-list');
+      list.innerHTML = '';
+
+      for (let i = 1; i < data.length; i++) {
+        const t = data[i];
+        list.innerHTML += `
+          <div class="train">
+            <div class="destination">Miami → ${t.destino}</div>
+            <div class="time">${t.hora}</div>
+          </div>`;
+      }
+    });
+  </script>
+</body>
+</html>
