@@ -5,7 +5,4 @@ services:
     buildCommand: ""
     startCommand: ""
     plan: free
-    branches: 
-      - main
-    rootDirectory: "."
     staticPublishPath: "/"
