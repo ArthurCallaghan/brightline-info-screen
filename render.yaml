@@ -1,14 +1,11 @@
 services:
-  - type: static
-    name: pantalla-brightline
-    staticPublishPath: ./
+  - type: web
+    name: brightline-screen
+    env: static
     buildCommand: ""
     startCommand: ""
-    envVars: []
-
-  - type: cron
-    name: brightline-scraper
-    schedule: "*/10 * * * *"
-    runtime: python
-    buildCommand: ""
-    startCommand: "python scraper.py"
+    plan: free
+    branches: 
+      - main
+    rootDirectory: "."
+    staticPublishPath: "/"
