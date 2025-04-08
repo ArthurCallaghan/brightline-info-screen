@@ -4,5 +4,4 @@ services:
     env: static
     buildCommand: ""
     startCommand: ""
-    plan: free
     staticPublishPath: "."
