@@ -5,4 +5,4 @@ services:
     buildCommand: ""
     startCommand: ""
     plan: free
-    staticPublishPath: "/"
+    staticPublishPath: "."
